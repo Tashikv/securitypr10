@@ -19,6 +19,7 @@
 		<title> Регистрация </title>
 		
 		<script src="https://code.jquery.com/jquery-1.8.3.js"></script>
+		<script scr="https://www.google.com/recaptcha/api.js" async defer></script>
 		<link rel="stylesheet" href="style.css">
 	</head>
 	<body>
@@ -43,6 +44,9 @@
 					<input name="_password" type="password" placeholder="" onkeypress="return PressToEnter(event)"/>
 					<div class = "sub-name">Повторите пароль:</div>
 					<input name="_passwordCopy" type="password" placeholder="" onkeypress="return PressToEnter(event)"/>
+					<center>
+					<div class="g-recaptcha" data-sitekey="6LdvFmAsAAAAAIeidwFmP5RgfaEVOy-nl1QOeO_P"></div>
+					</center>
 					
 					<a href="login.php">Вернуться</a>
 					<input type="button" class="button" value="Зайти" onclick="RegIn()" style="margin-top: 0px;"/>
@@ -66,9 +70,32 @@
 				var _password = document.getElementsByName("_password")[0].value;
 				var _passwordCopy = document.getElementsByName("_passwordCopy")[0].value;
 				
+				if(_login == "") {
+					alert("Введите логин");
+					return;
+				}
+
+				if(_password == "") {
+					alert("Введите пароль");
+					return;
+				}
+
+				if(_password == _passwordCopy) {
+					alert("Пароли не совподают.");
+					return;
+				}
+
+				var captcha = grecaptcha.getResponse();
+				if (captcha.length==0) {
+					alert("Пройди проверку на робота.");
+					return;
+				}
+
+				
+
 				if(_login != "") {
 					if(_password != "") {
-						if(_password == _passwordCopy) {
+						
 							loading.style.display = "block";
 							button.className = "button_diactive";
 							
@@ -107,9 +134,9 @@
 									button.className = "button";
 								}
 							});
-						} else alert("Пароли не совподают.");
-					} else alert("Введите пароль.");
-				} else alert("Введите логин.");
+						} else 
+					} else 
+				} else 
 			}
 			
 			function PressToEnter(e) {
