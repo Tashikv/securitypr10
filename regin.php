@@ -91,7 +91,10 @@
 					return;
 				}
 
-				
+				var data= new formData();
+				data.append("login", _login);
+				data.append("_password", _password);
+				data.append("g-recaptcha-response", captcha);
 
 				if(_login != "") {
 					if(_password != "") {
